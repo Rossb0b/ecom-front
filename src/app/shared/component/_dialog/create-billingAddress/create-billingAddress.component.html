@@ -1,0 +1,11 @@
+<div class="dial-container">
+  <h5 class="title">Ajouter une adresse de facturation</h5>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <input type="text" class="main-input" placeholder="Saisir le nom de l'adresse de facturation" formControlName="name">
+    <input type="text" class="main-input" placeholder="Saisir le numéro ainsi que la voie" formControlName="address">
+    <input type="text" class="main-input" placeholder="Saisir le nom de ville" formControlName="city">
+    <input type="text" class="main-input" placeholder="Saisir le code postal" formControlName="postCode">
+    <button mat-button class="submit-btn mt-2">Valider</button>
+    <a class="cancel-link" (click)="closeDialog()">Annuler</a>
+  </form>
+</div>

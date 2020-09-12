@@ -1,0 +1,11 @@
+<div class="dial-container">
+  <h5 class="title">Valider votre payement</h5>
+  <ngx-stripe-card (change)="onChange($event)"
+    [options]="cardOptions"
+    [elementsOptions]="elementsOptions"
+  ></ngx-stripe-card>
+  <div class="mt-3" id="card-errors"></div>
+  <button type="submit" (click)="pay()">
+    PAY
+  </button>
+</div>

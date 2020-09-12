@@ -1,0 +1,24 @@
+<mat-toolbar class="header">
+  <div class="container">
+    <div class="align-right">
+      <a routerLink="createProduct">Créer un nouveau produit</a>
+      <a routerLink="/">Aller au shop</a>
+    </div>
+    <span class="ml-2 avatar pl-2 pt-2" [matMenuTriggerFor]="menu">
+        {{ user?.user.firstname.charAt(0).toUpperCase() + user?.user.lastname.charAt(0).toUpperCase() }}
+    </span>
+    <mat-menu #menu="matMenu" class="menu">
+      <div class="menu-header mx-auto p-1">
+        {{ user?.user.firstname + ' ' + user?.user.lastname }}
+      </div>
+      <button mat-menu-item class="menu-btn" routerLink="/profil">
+        <mat-icon class="menu-icon">face</mat-icon>
+        <span>Mon profil</span>
+      </button>
+      <button mat-menu-item class="menu-btn separate-btn" (click)="logout()">
+        <mat-icon class="menu-icon">power_settings_new</mat-icon>
+        <span>Se déconnecter</span>
+      </button>
+    </mat-menu>
+  </div>
+</mat-toolbar>

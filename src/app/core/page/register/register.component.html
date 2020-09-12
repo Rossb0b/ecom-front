@@ -1,0 +1,16 @@
+<div class="login-card">
+  <h5 class="title">Créer un compte</h5>
+  <form [formGroup]="form" (ngSubmit)="register()">
+    <input type="text" placeholder="Saisir l'addresse e-mail" formControlName="email">
+    <input type="text" placeholder="Saisir le prénom" class="mt-1" formControlName="firstname">
+    <input type="text" placeholder="Saisir le nom" class="mt-1" formControlName="lastname">
+    <input type="password" placeholder="Saisir le mot de passe" class="mt-1" formControlName="password">
+    <input type="password" placeholder="Saisir le mot de passe (vérification)" class="mt-1" formControlName="passwordVerif">
+    <button mat-button class="submit-btn" [disabled]="loading ? '' : null">
+      <mat-spinner diameter="20" class="loading-spinner" *ngIf="loading"></mat-spinner> <ng-container *ngIf="!loading">S'inscrire</ng-container>
+    </button>
+  </form>
+  <div class="footer">
+    <a class="footer-link" routerLink="/login">J'ai déjà un compte</a>
+  </div>
+</div>

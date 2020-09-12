@@ -1,0 +1,183 @@
+<div class="container">
+
+  <mat-spinner class="mt-3 mx-auto" *ngIf="loading"></mat-spinner>
+
+  <div class="row" *ngIf="!loading">
+    <div class="col-10 mx-auto">
+      <h2>Bonjour <b class="important">{{ user?.firstname }}</b>, bienvenu sur votre espace personnel</h2>
+
+      <div class="row mt-4">
+        <div class="col-12">
+          <h2>
+            Vos adresses de facturation
+            <button mat-button *ngIf="showBillings === false" (click)="openBillingsPanel()"><span class="material-icons" (click)="openBillingsPanel()">
+              arrow_downward
+            </span></button>
+            <button mat-button *ngIf="showBillings === true;" (click)="closeBillingsPanel()"><span class="material-icons" (click)="openBillingsPanel()">
+              arrow_upward
+            </span></button>
+          </h2>
+        </div>
+      </div>
+
+      <div class="row" (clickOutside)="closeBillingsPanel()" [delayClickOutsideInit]="true" *ngIf="showBillings === true">
+        <div class="col-lg-8 d-flex flex-column">
+          <mat-expansion-panel class="mt-3" *ngFor="let billingAddress of user?.billingAddress; let indexOfBillingAddress = index;" (opened)="billingsPanelOpenState = true"
+          (closed)="billingsPanelOpenState = false">
+            <mat-expansion-panel-header>
+              <mat-panel-title class="p-2">
+                Votre adresse de facturation portant le nom '{{ billingAddress.name }}'
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <div class="row">
+              <div class="col-12">
+                <u>Ville</u> : {{ billingAddress.city }} |
+                <u>adresse</u> : {{ billingAddress.address }} |
+                <u>Code Postal</u> : {{ billingAddress.postCode }}
+                <button (click)="editBillingAddress(indexOfBillingAddress)" mat-raised-button class="m-2"><span class="material-icons" >
+                  edit
+                </span></button>
+              </div>
+            </div>
+
+          </mat-expansion-panel>
+        </div>
+      </div>
+
+      <div class="row mt-2">
+        <div class="col-12">
+          <h2>
+            Vos adresses de livraison
+            <button mat-button *ngIf="showShippings === false" (click)="openShippingsPanel()"><span class="material-icons" (click)="openShippingsPanel()">
+              arrow_downward
+            </span></button>
+            <button mat-button *ngIf="showShippings === true;" (click)="closeShippingsPanel()"><span class="material-icons" (click)="openShippingsPanel()">
+              arrow_upward
+            </span></button>
+          </h2>
+        </div>
+      </div>
+
+      <div class="row" (clickOutside)="closeShippingsPanel()" [delayClickOutsideInit]="true" *ngIf="showShippings === true">
+        <div class="col-lg-8 d-flex flex-column">
+          <mat-expansion-panel class="mt-3" *ngFor="let shippingAddress of user?.shippingAddress; let indexOfShippingAddress = index;" (opened)="shippingsPanelOpenState = true"
+          (closed)="shippingsPanelOpenState = false">
+            <mat-expansion-panel-header>
+              <mat-panel-title class="p-2">
+                Votre adresse de livraison portant le nom '{{ shippingAddress.name }}'
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <div class="row">
+              <div class="col-12">
+                <u>Ville</u> : {{ shippingAddress.city }} |
+                <u>adresse</u> : {{ shippingAddress.address }} |
+                <u>Code Postal</u> : {{ shippingAddress.postCode }}
+                <button (click)="editShippingAddress(indexOfShippingAddress)" mat-raised-button class="m-2"><span class="material-icons">
+                  edit
+                </span></button>
+              </div>
+            </div>
+
+          </mat-expansion-panel>
+        </div>
+      </div>
+
+      <div class="row mt-2">
+        <div class="col-12">
+          <h2>Liste des commandes
+            <button mat-button *ngIf="showCommands === false" (click)="openCommandsPanel()"><span class="material-icons" (click)="openCommandsPanel()">
+              arrow_downward
+            </span></button>
+            <button mat-button *ngIf="showCommands === true;" (click)="closeCommandsPanel()"><span class="material-icons" (click)="openCommandsPanel()">
+              arrow_upward
+            </span></button>
+          </h2>
+        </div>
+      </div>
+
+      <div class="row" (clickOutside)="closeCommandsPanel()" [delayClickOutsideInit]="true" *ngIf="showCommands === true">
+        <div class="col-lg-8 d-flex flex-column">
+          <mat-expansion-panel class="mt-3" *ngFor="let command of commands" (opened)="commandsPanelOpenState = true"
+            (closed)="commandsPanelOpenState = false">
+            <mat-expansion-panel-header>
+              <mat-panel-title *ngIf="user.role === 1">
+                  Votre commande en date du {{ command?.created_date | date: 'dd/MM/yyyy' }} pour un total de {{ command?.bucketInformation.price }}&euro;
+              </mat-panel-title>
+              <mat-panel-title *ngIf="user.role === 0">
+                Cette commande a été passée par {{ command?.clientInformation.user.firstname }} {{ command?.clientInformation.user.lastname }}
+                pour un total de {{ command?.bucketInformation.price }}&euro;
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <div class="row">
+              <div class="col-12">Numéro de commande : {{ command._id }}</div>
+            </div>
+
+            <div class="row mt-3">
+              <div class="col-12">
+                <mat-expansion-panel (opened)="secondPanelOpenState = true"
+                (closed)="secondPanelOpenState = false">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Adresse de facturation utilisée : &nbsp; <b class="important">{{ command?.clientInformation.billingAddress.name }}</b>
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <div class="row">
+                    <div class="col-12">
+                      <u>Ville</u> : {{ command?.clientInformation.billingAddress.city }} |
+                      <u>adresse</u> : {{ command?.clientInformation.billingAddress.address }} |
+                      <u>Code Postal</u> : {{ command?.clientInformation.billingAddress.postCode }}
+                    </div>
+                  </div>
+                </mat-expansion-panel>
+              </div>
+            </div>
+
+            <div class="row mt-3">
+              <div class="col-12">
+                <mat-expansion-panel (opened)="thirdPanelOpenState = true"
+                (closed)="thirdPanelOpenState = false">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Adresse de livraison utilisée : &nbsp; <b class="important">{{ command?.clientInformation.shippingAddress.name }}</b>
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <div class="row">
+                    <div class="col-12">
+                      <u>Ville</u> : {{ command?.clientInformation.shippingAddress.city }} |
+                      <u>adresse</u> : {{ command?.clientInformation.shippingAddress.address }} |
+                      <u>Code Postal</u> : {{ command?.clientInformation.shippingAddress.postCode }}
+                    </div>
+                  </div>
+                </mat-expansion-panel>
+              </div>
+            </div>
+
+            <div class="row mt-3">
+              <div class="col-12">
+                <mat-expansion-panel (opened)="fourthPanelOpenState = true"
+                (closed)="fourthPanelOpenState = false">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Liste des produits commandés
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <div class="row mt-2" *ngFor="let productData of command.bucketInformation.products">
+                    <div class="col-12">
+                      <u>nom</u> : <a [routerLink]="['/product/' + productData.productId ]" class="productLink">{{ productData?.name }}</a> |
+                      <u>prix unitaire</u> : {{ productData?.price }}&euro;
+                      <mat-divider class="mt-2"></mat-divider>
+                    </div>
+                  </div>
+                </mat-expansion-panel>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

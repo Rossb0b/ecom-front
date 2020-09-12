@@ -1,0 +1,69 @@
+<div class="container">
+
+  <mat-spinner class="mt-3 mx-auto" *ngIf="loading"></mat-spinner>
+
+  <div class="row mt-3" *ngIf="!loading">
+    <div class="col-10 mx-auto">
+      <div class="row" *ngIf="product">
+        <div class="col-lg-5 col-9 col-sm-8 col-md-6 mx-auto">
+          <ngb-carousel *ngIf="product.images.length === 1" [showNavigationArrows]="false" [showNavigationIndicators]="false">
+            <ng-template ngbSlide>
+              <div class="picsum-img-wrapper">
+                <img class="offset-1 col-10" [src]="product.images[0].uri" [alt]="product.images[0].alt">
+              </div>
+            </ng-template>
+          </ngb-carousel>
+
+          <ngb-carousel *ngIf="product.images.length > 1" [showNavigationArrows]="true" [showNavigationIndicators]="false">
+            <ng-template ngbSlide *ngFor="let image of product.images">
+              <div class="picsum-img-wrapper wrapper-with-nav">
+                <img class="offset-1 col-10" [src]="image.uri" [alt]="image.alt">
+              </div>
+            </ng-template>
+          </ngb-carousel>
+        </div>
+
+        <div class="col-10 col-lg-6">
+          <div class="row mt-3">
+            <div class="col-12">
+              <h3 class="h2 ft1-2"><strong>{{ product.name }}</strong></h3>
+              <span class="text-danger ft1-1"><b><u>{{ product.price }}&euro;</u></b></span>
+              <br/>
+              <br/>
+              <p class="align-left description">{{ product.description }}</p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-10 col-lg-6">
+              <div class="d-flex flex-row">
+                <div class="p-2">
+                  <button *ngIf="user !== null" mat-raised-button (click)="decreaseQuantity()" class="text-danger">-</button>
+                  <button *ngIf="user === null" mat-raised-button (click)="decreaseQuantity()" class="text-danger" disabled>-</button>
+                </div>
+                <div class="p-2 pt-3">
+                  <span>{{ quantity }}</span>
+                </div>
+                <div class="p-2">
+                  <button *ngIf="user !== null" mat-raised-button (click)="increaseQuantity()" class="text-success">+</button>
+                  <button *ngIf="user === null" mat-raised-button (click)="increaseQuantity()" class="text-success" disabled>+</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-10 col-lg-6">
+              <div class="d-flex flex-row">
+                <div class="p-2">
+                  <button *ngIf="user !== null" class="p-2" (click)="updateBucket()" mat-flat-button color="accent">Ajouter au panier</button>
+
+                  <button *ngIf="user === null" class="p-2" (click)="updateBucket()" mat-flat-button color="accent" disabled>Ajouter au panier</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

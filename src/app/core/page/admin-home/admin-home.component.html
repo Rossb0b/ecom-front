@@ -1,0 +1,17 @@
+
+
+  <mat-spinner class="mt-3 mx-auto" *ngIf="loading"></mat-spinner>
+
+  <div class="row no-margin no-padding" *ngIf="!loading">
+    <div class="col-md-10 col-lg-10 col-12 mx-auto">
+      <table class="col-10 mx-auto">
+        <tr *ngFor="let product of products">
+          <td class="p-2"><strong>{{ product.name }}</strong></td>
+          <td class="text-center p-2">{{ product.price }}&euro;</td>
+          <td class="p-2"><button mat-icon-button (click)="deleteProduct(product._id)"><mat-icon>delete</mat-icon></button></td>
+          <td class="p-2"><button mat-icon-button [routerLink]="['/admin/editProduct/' + product._id ]"><mat-icon>edit</mat-icon></button></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+

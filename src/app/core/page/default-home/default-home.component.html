@@ -1,0 +1,21 @@
+
+  <mat-spinner class="mt-3 mx-auto" *ngIf="loading"></mat-spinner>
+
+  <div class="row mt-4 no-margin no-padding" *ngIf="!loading">
+    <div class="col-md-10 col-lg-10 col-12 mx-auto">
+      <div class="d-flex flex-row justify-content-around flex-wrap">
+        <mat-card class="mt-4 col-lg-5 col-xl-3 col-9 col-sm-5 mx-auto" *ngFor="let product of products">
+          <mat-card-header>
+            <div mat-card-title><strong>{{ product.name }}</strong></div>
+          </mat-card-header>
+          <a [routerLink]="['/product/' + product._id ]"><img class="mt-2" mat-card-image src="{{ product.images[0].uri }}" alt="{{ product.images[0].alt }}"></a>
+          <mat-card-footer class="text-center price-inf">
+            <p class="text-center">
+              <u>{{ product.price }}&euro;</u>
+            </p>
+          </mat-card-footer>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+

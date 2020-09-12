@@ -1,0 +1,49 @@
+<mat-toolbar class="header">
+  <div class="container">
+    <h1><a routerLink="/">Default placeholder</a></h1>
+    <div class="align-right" *ngIf="!user">
+      <a routerLink="/login">Se connecter</a>
+      <a routerLink="/register">Créer un compte</a>
+    </div>
+
+    <div class="align-right" *ngIf="user && user.user.role === 0">
+      <a routerLink="/admin">Admin</a>
+      <span class="ml-2 avatar pt-1 pr-1 pb-1" [matMenuTriggerFor]="menu">
+        {{ user?.user.firstname.charAt(0).toUpperCase() + user?.user.lastname.charAt(0).toUpperCase() }}
+      </span>
+      <mat-menu #menu="matMenu" class="menu">
+        <div class="menu-header mx-auto p-1">
+          {{ user?.user.firstname + ' ' + user?.user.lastname }}
+        </div>
+        <button mat-menu-item class="menu-btn">
+          <mat-icon class="menu-icon">face</mat-icon>
+          <span>Mon profil</span>
+        </button>
+        <button mat-menu-item class="menu-btn separate-btn" routerLink="/">
+          <mat-icon class="menu-icon">power_settings_new</mat-icon>
+          <span (click)="logout()">Se déconnecter</span>
+        </button>
+      </mat-menu>
+    </div>
+
+    <div class="align-right" *ngIf="user && user.user.role === 1">
+      <a routerLink="/bucket"><button mat-icon-button><mat-icon>shopping_cart</mat-icon></button></a>
+      <span class="ml-2 avatar pt-1 pr-1 pb-1" [matMenuTriggerFor]="menu">
+          {{ user?.user.firstname.charAt(0).toUpperCase() + user?.user.lastname.charAt(0).toUpperCase() }}
+      </span>
+      <mat-menu #menu="matMenu" class="menu">
+        <div class="menu-header mx-auto p-1">
+          {{ user?.user.firstname + ' ' + user?.user.lastname }}
+        </div>
+        <button mat-menu-item class="menu-btn" routerLink="/profil">
+          <mat-icon class="menu-icon">face</mat-icon>
+          <span>Mon profil</span>
+        </button>
+        <button mat-menu-item class="menu-btn separate-btn" (click)="logout()">
+          <mat-icon class="menu-icon">power_settings_new</mat-icon>
+          <span>Se déconnecter</span>
+        </button>
+      </mat-menu>
+    </div>
+  </div>
+</mat-toolbar>

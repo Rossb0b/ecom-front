@@ -1,0 +1,78 @@
+.header
+  height: 6vh !important // prevent material theme switch header height from device height
+  background:#F4F5F7
+
+.container
+  max-width: 1200px
+  height: 100%
+  margin: auto
+  display: flex
+  align-items: center
+
+
+.align-right
+  margin-left: auto
+
+  a
+    font-size: 0.7rem
+    font-weight: lighter
+    color: #505f79
+    cursor: pointer
+    margin-left: 10px
+
+    &:hover
+      text-decoration: underline
+
+    &::before
+      content: '|'
+      margin-right: 10px
+
+h1 a
+  font-size: 0.9rem
+  color: black
+
+  &:hover
+    text-decoration: none
+
+a
+  color: black
+
+  &:hover
+    text-decoration: none
+
+.avatar
+  min-width: 42px !important
+  max-width: 42px !important
+  height: 42px !important
+  font-size: 20px
+  line-height: 22px
+  background: #ffffff
+  color: #5e5e5e
+  border-radius: 100%
+  cursor: pointer
+
+.menu
+  background: #ffffff
+
+.menu-btn
+  color: #686868
+
+  &:hover
+    background: #6868682c
+
+  &:focus
+    outline: none !important
+
+.menu-header
+  display: flex
+  align-items: center
+
+.menu-icon
+  color: #686868
+
+@media (min-width: 768px)
+  .align-right a
+    font-size: 0.9rem
+
+  h1 a
+    font-size: 1.1rem

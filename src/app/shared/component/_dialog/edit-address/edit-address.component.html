@@ -1,0 +1,11 @@
+<div class="dial-container">
+  <h5 class="title" *ngIf="data?.billingAddress">Modifier l'addresse de facturation {{ data.name }}</h5>
+  <h5 class="title" *ngIf="data?.shippingAddress">Modifier l'addresse de livraison {{data.name }}</h5>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <input type="text" class="main-input" formControlName="address">
+    <input type="text" class="main-input" formControlName="city">
+    <input type="text" class="main-input" formControlName="postCode">
+    <button mat-button class="submit-btn mt-2">Valider</button>
+    <a class="cancel-link" (click)="closeDialog()">Annuler</a>
+  </form>
+</div>

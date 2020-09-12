@@ -1,0 +1,78 @@
+
+  <mat-spinner class="mt-3 mx-auto" *ngIf="loading"></mat-spinner>
+
+  <div class="row mt-3 no-margin no-padding" *ngIf="!loading">
+    <div class="col-md-10 col-lg-8 col-12 mx-auto">
+      <mat-card>
+        <form [formGroup]="form" (submit)="createProduct()">
+          <div class="row">
+            <div class="col d-flex flex-column">
+              <mat-form-field>
+                <input
+                matInput
+                type="text"
+                formControlName="name"
+                minlength="3"
+                placeholder="Nom de produit">
+                <mat-error *ngIf="form.get('name').invalid">Veuillez fournir un nom de produit avec un minimum de 4 caractères.</mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="mt-3">
+                <textarea
+                matInput
+                rows="2"
+                formControlName="description"
+                minLength="10"
+                placeholder="Description du produit"></textarea>
+                <mat-error *ngIf="form.get('description').invalid">Veuillez fournir une description avec un minimum de 10 caractères.</mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="mt-3">
+                <label for="price">Prix du produit en €</label>
+                <input
+                matInput
+                type="number"
+                name="price"
+                formControlName="price"
+                min="1">
+                <mat-error *ngIf="form.get('price').invalid">Veuillez définir le prix du produit</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col-4">
+              <button mat-stroked-button type="button" (click)="filePicker.click()">Ajouter une image du produit</button>
+              <input type="file" single #filePicker (change)="onPickImage($event)" class="invisible">
+            </div>
+          </div>
+
+          <div class="row mt-2" *ngIf="filesToUpload.length > 0">
+            <div class="col-3 image-preview mx-auto p-2" *ngFor="let image of filesToUpload">
+              <img [src]="image" [alt]="form.value.name">
+            </div>
+          </div>
+
+          <div class="row mt-2" *ngIf="filesToUpload.length > 0">
+            <div class="col">
+              <button
+              mat-raised-button
+              color="accent"
+              type="submit">Enregister le produit</button>
+            </div>
+          </div>
+
+          <div class="row mt-2" *ngIf="filesToUpload.length === 0">
+            <div class="col">
+              <button
+              mat-raised-button
+              color="accent"
+              type="submit"
+              disabled>Enregister le produit</button>
+            </div>
+          </div>
+        </form>
+      </mat-card>
+    </div>
+  </div>
+
