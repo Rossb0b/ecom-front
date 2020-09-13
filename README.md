@@ -2,7 +2,7 @@
 
 ## Technical spec
 
-* Angular CLI 7.3.7
+* Angular CLI 9.1.12
 
 ## Development server
 
