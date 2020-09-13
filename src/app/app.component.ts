@@ -24,7 +24,7 @@ export class AppComponent implements OnInit, OnDestroy {
     try {
       await this.authService.autoAuthUser();
     } catch (e) {
-      console.log('try');
+      throw new Error(e);
     } finally {
       this.loading = false;
     }
